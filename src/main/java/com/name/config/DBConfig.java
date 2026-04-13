@@ -3,8 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class DBConfig {
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/car_rental_management_sys";
-	private static final String USERNAME = "user";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/car_rental_management_system";
+	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 	static {
     try {
