@@ -1,53 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Login Page</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DriveEase</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body>
-
-<div class="container">
-    <div class="left">
-        <div class="left-text">
-            <h1>Welcome Back</h1>
-            <p>Timex Inspired UI</p>
-        </div>
-    </div>
-
-    <div class="right">
-        <div class="tabs">
-            <button class="active" onclick="showForm('login')">Login</button>
-            <button onclick="showForm('request')">Request</button>
-        </div>
-
-        <form id="login" class="active">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <button class="submit">Login</button>
+<body class="auth-page">
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">🚗</div>
+        <h1>DriveEase</h1>
+        <h2>Sign in to your account</h2>
+        <c:if test="${not empty error}">
+            <div class="alert alert-error">${error}</div>
+        </c:if>
+        <c:if test="${param.registered eq 'true'}">
+            <div class="alert alert-success">Registration successful! Please login.</div>
+        </c:if>
+        <form action="${pageContext.request.contextPath}/login" method="post">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Login</button>
         </form>
-
-        <form id="request">
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email" required>
-            <input type="text" placeholder="Request Type" required>
-            <button class="submit">Submit Request</button>
-        </form>
+        <div class="auth-links">
+            <a href="${pageContext.request.contextPath}/register">Create an account</a>
+            <a href="${pageContext.request.contextPath}/reset-password">Forgot password?</a>
+        </div>
     </div>
 </div>
-
-<script>
-function showForm(type){
-    document.querySelectorAll('form').forEach(f=>f.classList.remove('active'));
-    document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-
-    document.getElementById(type).classList.add('active');
-    event.target.classList.add('active');
-}
-</script>
-
 </body>
 </html>
