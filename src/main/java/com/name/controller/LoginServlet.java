@@ -1,43 +1,45 @@
 package com.name.controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.name.model.User;
+import com.name.service.UserService;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 import java.io.IOException;
 
-/**
- * Servlet implementation class login
- */
-@WebServlet(asyncSupported = true, urlPatterns = {"/login","/"})
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    private final UserService userService = new UserService();
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("loggedUser") != null) {
+            User u = (User) session.getAttribute("loggedUser");
+            res.sendRedirect(req.getContextPath() + ("admin".equals(u.getRole()) ? "/admin/dashboard" : "/user/home"));
+            return;
+        }
+        req.getRequestDispatcher("/login.jsp").forward(req, res);
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
-		
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        try {
+            User user = userService.authenticate(email, password);
+            if (user == null) {
+                req.setAttribute("error", "Invalid email or password.");
+                req.getRequestDispatcher("/login.jsp").forward(req, res); return;
+            }
+            req.getSession().setAttribute("loggedUser", user);
+            res.sendRedirect(req.getContextPath() + ("admin".equals(user.getRole()) ? "/admin/dashboard" : "/user/home"));
+        } catch (IllegalStateException e) {
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/login.jsp").forward(req, res);
+        } catch (Exception e) {
+            req.setAttribute("error", "An error occurred. Please try again.");
+            req.getRequestDispatcher("/login.jsp").forward(req, res);
+        }
+    }
 }

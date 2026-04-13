@@ -1,11 +1,11 @@
 package com.name.dao;
 
 import com.name.config.DBConfig;
-import com.name.model.user;
+import com.name.model.User;
 import java.sql.*;
 
 public class UserDAO {
-    public user findByEmail(String email) throws SQLException {
+    public User findByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE email = ?";
         try (Connection c = DBConfig.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
