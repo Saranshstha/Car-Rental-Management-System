@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password - DriveEase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <style>
+        .auth-page::before {
+            background-image: url('https://images.unsplash.com/photo-1580414057403-c5f451f30e1c?w=1800&q=85&fit=crop');
+            background-position: center 40%;
+        }
+    </style>
 </head>
 <body class="auth-page">
 <div class="auth-container">
