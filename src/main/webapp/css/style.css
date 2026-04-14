@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== AUTH PAGES ===== */
+/* ===== AUTH PAGES (login, register, reset) ===== */
 .auth-page {
     display: flex;
     justify-content: center;
@@ -124,7 +124,7 @@ body {
 
 .nav-links a:hover,
 .nav-links a.active {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.1);
     color: #fff;
 }
 
@@ -133,7 +133,7 @@ body {
 }
 
 .nav-logout:hover {
-    background: rgba(248, 113, 113, 0.15) !important;
+    background: rgba(248,113,113,0.15) !important;
 }
 
 .nav-toggle {
@@ -185,9 +185,7 @@ body {
     color: #1a1a2e;
 }
 
-.mt-30 {
-    margin-top: 30px;
-}
+.mt-30 { margin-top: 30px; }
 
 /* ===== FORMS ===== */
 .form-group {
@@ -275,44 +273,17 @@ body {
     white-space: nowrap;
 }
 
-.btn-primary {
-    background: #4a6cf7;
-    color: #fff;
-}
+.btn-primary   { background: #4a6cf7; color: #fff; }
+.btn-primary:hover   { background: #3a5be4; transform: translateY(-1px); }
 
-.btn-primary:hover {
-    background: #3a5be4;
-    transform: translateY(-1px);
-}
+.btn-secondary { background: #6c757d; color: #fff; }
+.btn-secondary:hover { background: #5a6268; }
 
-.btn-secondary {
-    background: #6c757d;
-    color: #fff;
-}
+.btn-danger    { background: #e74c3c; color: #fff; }
+.btn-danger:hover    { background: #c0392b; }
 
-.btn-secondary:hover {
-    background: #5a6268;
-}
-
-.btn-danger {
-    background: #e74c3c;
-    color: #fff;
-}
-
-.btn-danger:hover {
-    background: #c0392b;
-}
-
-.btn-sm {
-    padding: 6px 14px;
-    font-size: 0.83rem;
-}
-
-.btn-full {
-    width: 100%;
-    display: block;
-    margin-top: 10px;
-}
+.btn-sm  { padding: 6px 14px; font-size: 0.83rem; }
+.btn-full { width: 100%; display: block; margin-top: 10px; }
 
 /* ===== ALERTS ===== */
 .alert {
@@ -423,15 +394,8 @@ body {
     letter-spacing: 0.4px;
 }
 
-.badge-success {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.badge-danger {
-    background: #fee2e2;
-    color: #991b1b;
-}
+.badge-success { background: #dcfce7; color: #166534; }
+.badge-danger  { background: #fee2e2; color: #991b1b; }
 
 /* ===== CAR GRID ===== */
 .car-grid {
@@ -495,7 +459,7 @@ body {
     font-size: 1rem;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
 /* ===== RESPONSIVE — TABLET ===== */

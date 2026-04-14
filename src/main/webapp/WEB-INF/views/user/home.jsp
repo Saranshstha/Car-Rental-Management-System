@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Cars - DriveEase</title>
+    <title>Home page - DriveEase</title>
     <link rel="stylesheet" href="/week5forcoursework/css/style.css">
 </head>
 <body>
