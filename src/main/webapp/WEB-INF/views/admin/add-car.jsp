@@ -10,19 +10,28 @@
 </head>
 <body>
 <nav class="navbar">
-    <div class="nav-brand">🚗 DriveEase <span class="role-badge">Admin</span></div>
+    <div class="nav-brand">DriveEase <span class="role-badge">Admin</span></div>
     <div class="nav-links">
         <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/admin/add-car" class="active">+ Add Car</a>
         <a href="${pageContext.request.contextPath}/logout" class="nav-logout">Logout</a>
     </div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+
 <div class="container">
     <div class="page-header">
-        <h2>Add New Car</h2>
+        <div>
+            <h2>Add New Car</h2>
+            <p class="subtitle">Add a vehicle to the fleet</p>
+        </div>
         <a href="${pageContext.request.contextPath}/admin/dashboard" class="btn btn-secondary btn-sm">← Back</a>
     </div>
+
     <c:if test="${not empty error}"><div class="alert alert-error">${error}</div></c:if>
+
     <div class="form-card">
         <form action="${pageContext.request.contextPath}/admin/add-car" method="post">
             <div class="form-group">

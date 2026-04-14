@@ -127,7 +127,7 @@ body {
   margin-bottom: 22px;
 }
 .auth-card .form-group label {
-  display: block;
+  display: white;
   font-size: 0.62rem;
   font-weight: 400;
   letter-spacing: 0.22em;
@@ -149,6 +149,20 @@ body {
   letter-spacing: 0.03em;
   transition: border-color 0.25s;
   border-radius: 0;
+  color: var(--wh) !important;
+  -webkit-text-fill-color: var(--wh);
+}
+
+.auth-card input:-webkit-autofill {
+    -webkit-text-fill-color: var(--wh) !important;
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth-card input:-webkit-autofill {
+    -webkit-text-fill-color: var(--accent) !important;
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 .auth-card .form-group input:focus {
   border-bottom-color: var(--accent);
