@@ -11,7 +11,6 @@
 <body class="auth-page">
 <div class="auth-container">
     <div class="auth-card">
-        <div class="auth-logo">🚗</div>
         <h1>DriveEase</h1>
         <h2>Sign in to your account</h2>
         <c:if test="${not empty error}">

@@ -14,7 +14,7 @@
     <div class="nav-brand">DriveEase</div>
     <div class="nav-links">
         <a href="${pageContext.request.contextPath}/user/home" class="active">Browse Cars</a>
-        <a href="${pageContext.request.contextPath}/user/rentel-cars.jsp">My Rentals</a>
+        <a href="${pageContext.request.contextPath}/user/rental-cars">My Rentals</a>
         <a href="${pageContext.request.contextPath}/logout" class="nav-logout">Logout</a>
     </div>
     <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
