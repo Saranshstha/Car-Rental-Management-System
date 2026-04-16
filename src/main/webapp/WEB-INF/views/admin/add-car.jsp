@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Car - DriveEase</title>
+    <title>Add Car — DriveEase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -25,13 +25,11 @@
     <div class="page-header">
         <div>
             <h2>Add New Car</h2>
-            <p class="subtitle">Add a vehicle to the fleet</p>
+            <p class="subtitle">Add a vehicle to the DriveEase fleet</p>
         </div>
         <a href="${pageContext.request.contextPath}/admin/dashboard" class="btn btn-secondary btn-sm">← Back</a>
     </div>
-
     <c:if test="${not empty error}"><div class="alert alert-error">${error}</div></c:if>
-
     <div class="form-card">
         <form action="${pageContext.request.contextPath}/admin/add-car" method="post">
             <div class="form-group">
@@ -57,5 +55,38 @@
         </form>
     </div>
 </div>
+
+<footer>
+    <div class="footer-top">
+        <div>
+            <span class="footer-brand">DriveEase</span>
+            <p class="footer-desc">Premium car rental built around you. Every vehicle, every journey — considered.</p>
+        </div>
+        <div>
+            <div class="footer-col-title">Admin</div>
+            <ul class="footer-links">
+                <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/add-car">Add Car</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Account</div>
+            <ul class="footer-links">
+                <li><a href="${pageContext.request.contextPath}/logout">Sign Out</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Support</div>
+            <ul class="footer-links">
+                <li><a href="#">Help Centre</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2025 <span>DriveEase</span>. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
 </body>
 </html>

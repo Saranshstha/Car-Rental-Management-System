@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Car - DriveEase</title>
+    <title>Edit Car — DriveEase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -24,11 +24,10 @@
     <div class="page-header">
         <div>
             <h2>Edit Car</h2>
-            <p class="subtitle">Update vehicle details</p>
+            <p class="subtitle">Update vehicle information</p>
         </div>
         <a href="${pageContext.request.contextPath}/admin/dashboard" class="btn btn-secondary btn-sm">← Back</a>
     </div>
-
     <div class="form-card">
         <form action="${pageContext.request.contextPath}/admin/edit-car" method="post">
             <input type="hidden" name="carId" value="${car.carId}">
@@ -55,5 +54,37 @@
         </form>
     </div>
 </div>
+
+<footer>
+    <div class="footer-top">
+        <div>
+            <span class="footer-brand">DriveEase</span>
+            <p class="footer-desc">Premium car rental built around you. Every vehicle, every journey — considered.</p>
+        </div>
+        <div>
+            <div class="footer-col-title">Admin</div>
+            <ul class="footer-links">
+                <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Account</div>
+            <ul class="footer-links">
+                <li><a href="${pageContext.request.contextPath}/logout">Sign Out</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Support</div>
+            <ul class="footer-links">
+                <li><a href="#">Help Centre</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2025 <span>DriveEase</span>. All rights reserved.</span>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+</footer>
 </body>
 </html>

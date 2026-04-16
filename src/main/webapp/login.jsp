@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - DriveEase</title>
+    <title>Login — DriveEase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="auth-page">
 <div class="auth-container">
     <div class="auth-card">
+        <div class="auth-logo">🚗</div>
         <h1>DriveEase</h1>
         <h2>Sign in to your account</h2>
         <c:if test="${not empty error}">

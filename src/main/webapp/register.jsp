@@ -5,10 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - DriveEase</title>
+    <title>Register — DriveEase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <style>
-        /* register uses a different hero image */
         .auth-page::before {
             background-image: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1800&q=85&fit=crop');
             background-position: center 55%;

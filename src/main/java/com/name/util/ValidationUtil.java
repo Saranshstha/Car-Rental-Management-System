@@ -13,4 +13,4 @@ public class ValidationUtil {
     public static boolean isValidPassword(String password) {
         return password != null && password.length() >= 6;
     }
-}
+}	

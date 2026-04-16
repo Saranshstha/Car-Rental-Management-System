@@ -10,7 +10,8 @@ import java.io.IOException;
 
 @WebServlet("/user/*")
 public class UserHomeServlet extends HttpServlet {
-    private final CarService carService = new CarService();
+
+    private final CarService    carService    = new CarService();
     private final RentalService rentalService = new RentalService();
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -26,7 +27,9 @@ public class UserHomeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        if ("/rent".equals(req.getPathInfo())) rentCar(req, res);
+        String path = req.getPathInfo();
+        if ("/rent".equals(path))   rentCar(req, res);
+        if ("/cancel".equals(path)) cancelRental(req, res);
     }
 
     private void showHome(HttpServletRequest req, HttpServletResponse res)
@@ -47,9 +50,27 @@ public class UserHomeServlet extends HttpServlet {
 
     private void rentCar(HttpServletRequest req, HttpServletResponse res) throws IOException {
         try {
-            User user = (User) req.getSession().getAttribute("loggedUser");
-            rentalService.rentCar(user.getId(), Integer.parseInt(req.getParameter("carId")));
+            User user   = (User) req.getSession().getAttribute("loggedUser");
+            int  carId  = Integer.parseInt(req.getParameter("carId"));
+            int  days   = Integer.parseInt(req.getParameter("days") != null && !req.getParameter("days").isEmpty()
+                            ? req.getParameter("days") : "1");
+            String name  = req.getParameter("renterName");
+            String email = req.getParameter("renterEmail");
+            String phone = req.getParameter("renterPhone");
+            rentalService.rentCar(user.getId(), carId, days, name, email, phone);
             res.sendRedirect(req.getContextPath() + "/user/home?success=Car+rented+successfully");
-        } catch (Exception e) { res.sendRedirect(req.getContextPath() + "/user/home?error=Rental+failed"); }
+        } catch (Exception e) {
+            res.sendRedirect(req.getContextPath() + "/user/home?error=Rental+failed");
+        }
+    }
+
+    private void cancelRental(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        try {
+            int rentalId = Integer.parseInt(req.getParameter("rentalId"));
+            rentalService.cancelRental(rentalId);
+            res.sendRedirect(req.getContextPath() + "/user/rented-cars?success=Reservation+cancelled");
+        } catch (Exception e) {
+            res.sendRedirect(req.getContextPath() + "/user/rented-cars?error=Cancel+failed");
+        }
     }
 }
