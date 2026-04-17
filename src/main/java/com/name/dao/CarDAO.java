@@ -19,7 +19,8 @@ public class CarDAO {
     public List<Car> findAvailable() throws SQLException {
         List<Car> list = new ArrayList<>();
         try (Connection c = DBConfig.getConnection();
-             ResultSet rs = c.createStatement().executeQuery("SELECT * FROM cars WHERE availability = 1")) {
+             ResultSet rs = c.createStatement().executeQuery(
+                     "SELECT * FROM cars WHERE availability = 1")) {
             while (rs.next()) list.add(map(rs));
         }
         return list;
@@ -37,26 +38,34 @@ public class CarDAO {
     }
 
     public boolean save(Car car) throws SQLException {
-        String sql = "INSERT INTO cars (name, brand, price, availability) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO cars (name, brand, price, availability, image_url) VALUES (?,?,?,?,?)";
         try (Connection c = DBConfig.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, car.getName());
             ps.setString(2, car.getBrand());
             ps.setDouble(3, car.getPrice());
             ps.setBoolean(4, car.isAvailability());
+            ps.setString(5, car.getImageUrl());
             return ps.executeUpdate() > 0;
         }
     }
 
     public boolean update(Car car) throws SQLException {
-        String sql = "UPDATE cars SET name=?, brand=?, price=?, availability=? WHERE car_id=?";
+        String sql = "UPDATE cars SET name=?, brand=?, price=?, availability=?"
+                   + (car.getImageUrl() != null ? ", image_url=?" : "")
+                   + " WHERE car_id=?";
         try (Connection c = DBConfig.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, car.getName());
             ps.setString(2, car.getBrand());
             ps.setDouble(3, car.getPrice());
             ps.setBoolean(4, car.isAvailability());
-            ps.setInt(5, car.getCarId());
+            if (car.getImageUrl() != null) {
+                ps.setString(5, car.getImageUrl());
+                ps.setInt(6, car.getCarId());
+            } else {
+                ps.setInt(5, car.getCarId());
+            }
             return ps.executeUpdate() > 0;
         }
     }
@@ -76,9 +85,7 @@ public class CarDAO {
         try (Connection c = DBConfig.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             String k = "%" + keyword + "%";
-            ps.setString(1, k);
-            ps.setString(2, k);
-            ps.setString(3, k);
+            ps.setString(1, k); ps.setString(2, k); ps.setString(3, k);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) list.add(map(rs));
         }
@@ -102,6 +109,7 @@ public class CarDAO {
         car.setBrand(rs.getString("brand"));
         car.setPrice(rs.getDouble("price"));
         car.setAvailability(rs.getBoolean("availability"));
+        try { car.setImageUrl(rs.getString("image_url")); } catch (SQLException ignored) {}
         return car;
     }
 }
