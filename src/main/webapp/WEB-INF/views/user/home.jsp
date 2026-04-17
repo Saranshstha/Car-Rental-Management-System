@@ -283,7 +283,7 @@ var carPhotos = {
     'bmw':      'https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=700&q=80&fit=crop',
     'mercedes': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=700&q=80&fit=crop',
     'porsche':  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80&fit=crop',
-    
+    'default':  'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=700&q=80&fit=crop'
 };
 
 document.querySelectorAll('.car-card').forEach(function(card) {
