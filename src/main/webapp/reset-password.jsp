@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,16 +20,20 @@
         <div class="auth-logo">🔐</div>
         <h1>DriveEase</h1>
         <h2>Reset your password</h2>
-        <c:if test="${not empty error}"><div class="alert alert-error">${error}</div></c:if>
-        <c:if test="${not empty success}"><div class="alert alert-success">${success}</div></c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-error">${error}</div>
+        </c:if>
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">${success}</div>
+        </c:if>
         <form action="${pageContext.request.contextPath}/reset-password" method="post">
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="your registered email">
+                <input type="email" id="email" name="email" required placeholder="your registered email" autocomplete="email">
             </div>
             <div class="form-group">
-                <label for="newPassword">New Password</label>
-                <input type="password" id="newPassword" name="newPassword" required minlength="6">
+                <label for="newPassword">New Password <span class="hint">(min 6 characters)</span></label>
+                <input type="password" id="newPassword" name="newPassword" required minlength="6" placeholder="••••••••" autocomplete="new-password">
             </div>
             <button type="submit" class="btn btn-primary btn-full">Reset Password</button>
         </form>

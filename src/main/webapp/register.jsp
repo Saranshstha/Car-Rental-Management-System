@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,15 +26,15 @@
         <form action="${pageContext.request.contextPath}/register" method="post">
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="John Doe">
+                <input type="text" id="name" name="name" required placeholder="John Doe" autocomplete="name">
             </div>
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="you@example.com">
+                <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
             </div>
             <div class="form-group">
                 <label for="password">Password <span class="hint">(min 6 characters)</span></label>
-                <input type="password" id="password" name="password" required minlength="6">
+                <input type="password" id="password" name="password" required minlength="6" placeholder="••••••••" autocomplete="new-password">
             </div>
             <button type="submit" class="btn btn-primary btn-full">Create Account</button>
         </form>

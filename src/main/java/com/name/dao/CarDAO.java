@@ -10,7 +10,7 @@ public class CarDAO {
     public List<Car> findAll() throws SQLException {
         List<Car> list = new ArrayList<>();
         try (Connection c = DBConfig.getConnection();
-             ResultSet rs = c.createStatement().executeQuery("SELECT * FROM cars")) {
+             ResultSet rs = c.createStatement().executeQuery("SELECT * FROM cars ORDER BY car_id")) {
             while (rs.next()) list.add(map(rs));
         }
         return list;
@@ -20,7 +20,7 @@ public class CarDAO {
         List<Car> list = new ArrayList<>();
         try (Connection c = DBConfig.getConnection();
              ResultSet rs = c.createStatement().executeQuery(
-                     "SELECT * FROM cars WHERE availability = 1")) {
+                     "SELECT * FROM cars WHERE availability = 1 ORDER BY car_id")) {
             while (rs.next()) list.add(map(rs));
         }
         return list;
@@ -28,8 +28,7 @@ public class CarDAO {
 
     public Car findById(int id) throws SQLException {
         String sql = "SELECT * FROM cars WHERE car_id = ?";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return map(rs);
@@ -39,8 +38,7 @@ public class CarDAO {
 
     public boolean save(Car car) throws SQLException {
         String sql = "INSERT INTO cars (name, brand, price, availability, image_url) VALUES (?,?,?,?,?)";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, car.getName());
             ps.setString(2, car.getBrand());
             ps.setDouble(3, car.getPrice());
@@ -51,29 +49,25 @@ public class CarDAO {
     }
 
     public boolean update(Car car) throws SQLException {
-        String sql = "UPDATE cars SET name=?, brand=?, price=?, availability=?"
-                   + (car.getImageUrl() != null ? ", image_url=?" : "")
-                   + " WHERE car_id=?";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        // only overwrite image_url if a new one was provided
+        boolean hasImg = car.getImageUrl() != null && !car.getImageUrl().isEmpty();
+        String sql = hasImg
+            ? "UPDATE cars SET name=?, brand=?, price=?, availability=?, image_url=? WHERE car_id=?"
+            : "UPDATE cars SET name=?, brand=?, price=?, availability=? WHERE car_id=?";
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, car.getName());
             ps.setString(2, car.getBrand());
             ps.setDouble(3, car.getPrice());
             ps.setBoolean(4, car.isAvailability());
-            if (car.getImageUrl() != null) {
-                ps.setString(5, car.getImageUrl());
-                ps.setInt(6, car.getCarId());
-            } else {
-                ps.setInt(5, car.getCarId());
-            }
+            if (hasImg) { ps.setString(5, car.getImageUrl()); ps.setInt(6, car.getCarId()); }
+            else        { ps.setInt(5, car.getCarId()); }
             return ps.executeUpdate() > 0;
         }
     }
 
     public boolean delete(int carId) throws SQLException {
         String sql = "DELETE FROM cars WHERE car_id = ?";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, carId);
             return ps.executeUpdate() > 0;
         }
@@ -82,8 +76,7 @@ public class CarDAO {
     public List<Car> search(String keyword) throws SQLException {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM cars WHERE name LIKE ? OR brand LIKE ? OR CAST(price AS CHAR) LIKE ?";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             String k = "%" + keyword + "%";
             ps.setString(1, k); ps.setString(2, k); ps.setString(3, k);
             ResultSet rs = ps.executeQuery();
@@ -94,11 +87,8 @@ public class CarDAO {
 
     public void updateAvailability(int carId, boolean available) throws SQLException {
         String sql = "UPDATE cars SET availability = ? WHERE car_id = ?";
-        try (Connection c = DBConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setBoolean(1, available);
-            ps.setInt(2, carId);
-            ps.executeUpdate();
+        try (Connection c = DBConfig.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setBoolean(1, available); ps.setInt(2, carId); ps.executeUpdate();
         }
     }
 
